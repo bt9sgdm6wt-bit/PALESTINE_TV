@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101810">
+<title>PALESTINE TV | فلسطين TV</title>
+<style>
+:root {
+  --bg:#f4f6f3;
+  --card:#ffffff;
+  --text:#17221a;
+  --muted:#68746b;
+  --green:#08783d;
+  --red:#d92832;
+  --border:#e2e8e2;
+}
+body.dark {
+  --bg:#101810;
+  --card:#1b281e;
+  --text:#f4f7f3;
+  --muted:#aab6ac;
+  --border:#344338;
+}
+*{box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  transition:.25s;
+}
+header {
+  background:#101810;
+  color:white;
+  text-align:center;
+  padding:25px 15px 20px;
+  border-bottom:5px solid #08783d;
+}
+.shahada {
+  font-size:19px;
+  line-height:1.9;
+  direction:rtl;
+  color:white;
+}
+.brand {
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:1px;
+  margin:12px 0 5px;
+}
+.brand span{color:#e43a40}
+.arabic {font-size:18px}
+.flag {
+  display:flex;
+  height:5px;
+  max-width:190px;
+  margin:15px auto 0;
+}
+.flag i{flex:1}
+.flag i:nth-child(1){background:#e52e37}
+.flag i:nth-child(2){background:white}
+.flag i:nth-child(3){background:#078342}
+nav {
+  display:flex;
+  overflow-x:auto;
+  gap:8px;
+  padding:12px;
+  background:var(--card);
+  position:sticky;
+  top:0;
+  z-index:10;
+  border-bottom:1px solid var(--border);
+}
+nav button {
+  white-space:nowrap;
+  border:0;
+  border-radius:10px;
+  padding:11px 14px;
+  background:var(--bg);
+  color:var(--text);
+  font-weight:bold;
+  cursor:pointer;
+}
+nav button.active {
+  background:var(--green);
+  color:white;
+}
+main {
+  max-width:1050px;
+  margin:auto;
+  padding:22px 15px 50px;
+}
+.page{display:none}
+.page.active{display:block}
+h2{font-size:25px;margin:5px 0 15px}
+h3{margin-top:0}
+.hero {
+  background:linear-gradient(130deg,#101810,#075d35);
+  color:white;
+  padding:30px 22px;
+  border-radius:18px;
+  margin-bottom:25px;
+}
+.hero h2{font-size:28px}
+.hero p{line-height:1.7;color:#e0e9e1}
+.section-title {
+  border-left:5px solid var(--red);
+  padding-left:12px;
+  margin:28px 0 15px;
+}
+.cards {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:15px;
+}
+.card {
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:18px;
+  border-radius:15px;
+  box-shadow:0 3px 12px #00000008;
+}
+.card p{color:var(--muted);line-height:1.6}
+.tag {
+  display:inline-block;
+  background:#e0f2e6;
+  color:#08783d;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+}
+button,.btn{cursor:pointer}
+.action {
+  display:inline-block;
+  background:var(--green);
+  color:white;
+  text-decoration:none;
+  padding:12px 18px;
+  border:0;
+  border-radius:10px;
+  font-weight:bold;
+  margin-top:8px;
+}
+.secondary {
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+}
+.setting {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:16px 0;
+  border-bottom:1px solid var(--border);
+}
+select {
+  padding:10px;
+  border-radius:8px;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+}
+.news-card h3{line-height:1.4}
+.news-card a {
+  color:var(--green);
+  font-weight:bold;
+  text-decoration:none;
+}
+footer {
+  background:#101810;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+  line-height:1.8;
+}
+footer p{color:#c0c9c1}
+.loading{color:var(--muted)}
+@media(max-width:500px){
+ .brand{font-size:25px}
+ .shahada{font-size:17px}
+ .hero h2{font-size:24px}
+ nav button{padding:10px;font-size:13px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="shahada">
+    لَا إِلَٰهَ إِلَّا اللَّهُ مُحَمَّدٌ رَسُولُ اللَّهِ
+  </div>
+  <div class="brand">PALESTINE <span>TV</span></div>
+  <div class="arabic">فلسطين TV</div>
+  <div class="flag"><i></i><i></i><i></i></div>
+  <p id="subtitle">Новости Палестины и исламского мира</p>
+</header>
+
+<nav>
+  <button class="active" data-page="home" onclick="showPage('home',this)">🏠 Главная</button>
+  <button data-page="news" onclick="showPage('news',this)">📰 Новости</button>
+  <button data-page="settings" onclick="showPage('settings',this)">⚙️ Настройки</button>
+  <button data-page="about" onclick="showPage('about',this)">ℹ️ О нас</button>
+  <button data-page="support" onclick="showPage('support',this)">🤲 Поддержать</button>
+</nav>
+
+<main>
+<section id="home" class="page active">
+  <div class="hero">
+    <span class="tag">PALESTINE TV</span>
+    <h2 id="welcome">Добро пожаловать!</h2>
+    <p>Новости Палестины, Газы, Ближнего Востока и исламского мира. Следите за важными событиями вместе с нами.</p>
+    <button class="action" onclick="showPage('news')">Читать новости →</button>
+  </div>
+  <h2 class="section-title">Последние новости</h2>
+  <div id="homeNews" class="cards">
+    <p class="loading">Загружаем новости...</p>
+  </div>
+</section>
+
+<section id="news" class="page">
+  <h2>📰 Новости</h2>
+  <p>Последние публикации из новостных источников.</p>
+  <div id="allNews" class="cards">
+    <p class="loading">Загружаем новости...</p>
+  </div>
+</section>
+
+<section id="settings" class="page">
+  <h2>⚙️ Настройки</h2>
+  <div class="card">
+    <div class="setting">
+      <strong>Язык / اللغة</strong>
+      <select id="language" onchange="setLanguage(this.value)">
+        <option value="ru">Русский</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
+    <div class="setting">
+      <strong>Тема оформления</strong>
+      <select id="theme" onchange="setTheme(this.value)">
+        <option value="light">Светлая</option>
+        <option value="dark">Тёмная</option>
+      </select>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="page">
+  <h2>ℹ️ О нашем проекте</h2>
+  <div class="card">
+    <h3>PALESTINE TV | فلسطين TV</h3>
+    <p>Независимый информационный проект, посвящённый событиям в Палестине, Газе, на Ближнем Востоке и в исламском мире.</p>
+    <p>Наша цель — распространять достоверную информацию, освещать важные события и доносить новости до русскоязычной и арабоязычной аудитории.</p>
+    <p>Мы стремимся развивать проект на международном уровне.</p>
+  </div>
+</section>
+
+<section id="support" class="page">
+  <div class="hero">
+    <h2>🤲 Поддержите PALESTINE TV</h2>
+    <p>Ваша поддержка помогает развивать проект, рекламировать канал, привлекать новых читателей и совершенствовать наш сайт.</p>
+  </div>
+  <div class="cards">
+    <div class="card"><h3>50 ₽</h3><p>Небольшой вклад в развитие проекта.</p></div>
+    <div class="card"><h3>100 ₽</h3><p>Помощь в продвижении канала.</p></div>
+    <div class="card"><h3>300 ₽</h3><p>Поддержка дальнейшего развития.</p></div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <h3>Спасибо за вашу помощь!</h3>
+    <p>Для финансовой поддержки напишите нашему администратору в Telegram со словом «ПОДДЕРЖКА».</p>
+    <button class="action" onclick="copySupport()">Скопировать: ПОДДЕРЖКА</button>
+    <p id="copyStatus"></p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <strong>PALESTINE TV | فلسطين TV</strong>
+  <p>Новости Палестины и исламского мира</p>
+  <div class="flag"><i></i><i></i><i></i></div>
+  <small>© 2026 PALESTINE TV. Все права защищены.</small>
+</footer>
+
+<script>
+const pages=document.querySelectorAll('.page');
+
+function showPage(id,button){
+  pages.forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));
+  if(button) button.classList.add('active');
+  else {
+    const b=document.querySelector('nav button[data-page="'+id+'"]');
+    if(b)b.classList.add('active');
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function setTheme(value){
+  document.body.classList.toggle('dark',value==='dark');
+  localStorage.setItem('ptv-theme',value);
+}
+
+function setLanguage(value){
+  localStorage.setItem('ptv-language',value);
+  document.documentElement.lang=value;
+  document.documentElement.dir=value==='ar'?'rtl':'ltr';
+  if(value==='ar'){
+    document.getElementById('subtitle').textContent='أخبار فلسطين والعالم الإسلامي';
+    document.getElementById('welcome').textContent='أهلاً وسهلاً بكم!';
+  }else{
+    document.getElementById('subtitle').textContent='Новости Палестины и исламского мира';
+    document.getElementById('welcome').textContent='Добро пожаловать!';
+  }
+}
+
+function copySupport(){
+  navigator.clipboard.writeText('ПОДДЕРЖКА').then(()=>{
+    document.getElementById('copyStatus').textContent='Текст скопирован!';
+  }).catch(()=>{
+    document.getElementById('copyStatus').textContent='Скопируйте слово: ПОДДЕРЖКА';
+  });
+}
+
+const feeds=[
+ 'https://www.aljazeera.net/aljazeera/rss',
+ 'https://feeds.bbci.co.uk/arabic/rss.xml'
+];
+
+async function loadNews(){
+  const containers=[
+    document.getElementById('homeNews'),
+    document.getElementById('allNews')
+  ];
+  let articles=[];
+
+  for(const feed of feeds){
+    try{
+      const url='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feed);
+      const response=await fetch(url);
+      const data=await response.json();
+      if(data.status==='ok' && data.items){
+        articles=articles.concat(data.items);
+      }
+    }catch(error){
+      console.log('RSS feed unavailable:',feed);
+    }
+  }
+
+  if(articles.length===0){
+    const message='<div class="card"><h3>Новости временно недоступны</h3><p>Не удалось получить RSS-ленту. Попробуйте обновить страницу позже.</p></div>';
+    containers.forEach(c=>c.innerHTML=message);
+    return;
+  }
+
+  const html=articles.slice(0,20).map(item=>{
+    const title=escapeHTML(item.title||'Без заголовка');
+    const description=escapeHTML((item.description||'').replace(/<[^>]*>/g,'').slice(0,180));
+    const date=item.pubDate?new Date(item.pubDate).toLocaleDateString():'';
+    const link=safeLink(item.link);
+    return `<article class="card news-card">
+      <span class="tag">НОВОСТИ</span>
+      <h3>${title}</h3>
+      <p>${description}</p>
+      <small>${date}</small><br>
+      <a href="${link}" target="_blank" rel="noopener noreferrer">Читать источник →</a>
+    </article>`;
+  }).join('');
+
+  containers.forEach(c=>c.innerHTML=html);
+}
+
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g,ch=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;',
+    '"':'&quot;',"'":'&#39;'
+  })[ch]);
+}
+
+function safeLink(value){
+  try{
+    const url=new URL(value);
+    return url.protocol==='https:'?url.href:'#';
+  }catch(e){return '#';}
+}
+
+document.getElementById('theme').value=localStorage.getItem('ptv-theme')||'light';
+setTheme(document.getElementById('theme').value);
+document.getElementById('language').value=localStorage.getItem('ptv-language')||'ru';
+setLanguage(document.getElementById('language').value);
+loadNews();
+</script>
+</body>
+</html>
